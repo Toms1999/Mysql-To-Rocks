@@ -24,7 +24,6 @@ sed -i 's/\\n/\n/g' ../result/tmp111.sql
 sed -n '/CREATE TABLE/,/ENGINE\=/p' ../result/tmp111.sql > ../result/tmp222.sql
 
 
-
 #delete tables special struct
 sed -i '/^  CON/d' ../result/tmp222.sql
 sed -i '/^  KEY/d' ../result/tmp222.sql
@@ -33,22 +32,20 @@ rm -rf ../result/tmp111.sql
 mv ../result/tmp222.sql $path
 
 #start transform tables struct
-sed -i '/ENGINE=/a) ENGINE=MYSQL\n COMMENT "ODBC"\nPROPERTIES (\n"host" = "rocksHostIp",\n"port" = "3306",\n"user" = "root",\n"password" = "rocksHostPassword",\n"database" = "rocksDataBases",\n"table" = "rocksTables");' $path
+sed -i '/ENGINE=/a) ENGINE=MYSQL\n COMMENT "MYSQL"\nPROPERTIES (\n"host" = "rocksHostIp",\n"port" = "3306",\n"user" = "root",\n"password" = "rocksHostPassword",\n"database" = "rocksDataBases",\n"table" = "rocksTables");' $path
 
 
 #delete match line
 sed -i '/PRIMARY KEY/d' $path
 sed -i '/UNIQUE KEY/d' $path
+
 #delete , at the beginning (
 sed -i '/,\s*$/{:loop; N; /,\(\s*\|\n\))/! bloop; s/,\s*[\n]\?\s*)/\n)/}' $path
 
 #delete a line on keyword
-sed -i -e '$!N;/\n.*ENGINE=ODBC/!P;D' $path
+sed -i -e '$!N;/\n.*ENGINE=MYSQL/!P;D' $path
+
 #replace mysql password、database、table、host
-
-
-
-
 for t_name in $(cat ../conf/mysql_tables |grep -v '#' | awk -F '\n' '{print $1}')
         do
         d=`echo $t_name | awk -F '.' '{print $1}'`
@@ -58,7 +55,6 @@ for t_name in $(cat ../conf/mysql_tables |grep -v '#' | awk -F '\n' '{print $1}'
         sed -i "0,/rocksDataBases/s/rocksDataBases/$d/" $path
         sed -i "0,/rocksTables/s/rocksTables/$t/" $path
 done
-
 
 
 #do transfrom from mysql to rocks external
