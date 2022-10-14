@@ -3,7 +3,7 @@
 
 ### 1、结构图
 
-![img.png](img.png)
+![img_1.png](img_1.png)
 
 ```shell
     mysql_to_rocks/
