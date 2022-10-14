@@ -3,8 +3,7 @@
 
 ###1、结构图
 
-![1665235406377](C:\Users\86138\AppData\Roaming\Typora\typora-user-images\1665235406377.png)
-
+![img.png](img.png)
 
 ```shell
     mysql_to_rocks/
