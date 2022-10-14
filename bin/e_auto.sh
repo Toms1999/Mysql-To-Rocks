@@ -12,7 +12,7 @@ do
 sleep 30
 
 #get new create table sql
-sh ./mysql_to_rocks.sh ../result/new_mysql_to_rocks.sql 2>error.log
+sh ./e_mysql_to_rocks.sh ../result/new_mysql_to_rocks.sql 2>error.log
 
 #get a md5 from old create table sql
 old=`md5sum ../result/mysql_to_rocks.sql |awk -F ' ' '{print $1}'`
