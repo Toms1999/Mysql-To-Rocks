@@ -16,7 +16,7 @@
     │   ├── mysql.conf --外部表连接信息
     │   └── mysql_tables --源表库名.表名
     └── lib
-        └── mysql_to_rocks.sh --mysql映射rocks外表结构转换
+        └── mysql_to_rocks.sql --mysql映射rocks外表结构转换
 ```
 
 

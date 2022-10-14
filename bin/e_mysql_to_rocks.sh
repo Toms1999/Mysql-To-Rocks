@@ -33,8 +33,7 @@ rm -rf ../result/tmp111.sql
 mv ../result/tmp222.sql $path
 
 #start transform tables struct
-sed -i '/ENGINE=/a) ENGINE=ODBC\n COMMENT "ODBC"\nPROPERTIES (\n"host" = "ApacherocksHostIp",\n"port" = "3306",\n"user" = "root",\n"password" = "ApacherocksHostPassword",\n"database" = "ApacherocksDataBases",\n"table" = "ApacherocksTables",\n"driver" = "MySQL",\n"odbc_type" = "mysql");' $path
-sed -i "s/\"driver\" = \"MySQL\"/\"driver\" = \"$rocks_odbc_name\"/g" $path
+sed -i '/ENGINE=/a) ENGINE=MYSQL\n COMMENT "ODBC"\nPROPERTIES (\n"host" = "rocksHostIp",\n"port" = "3306",\n"user" = "root",\n"password" = "rocksHostPassword",\n"database" = "rocksDataBases",\n"table" = "rocksTables");' $path
 
 
 #delete match line
@@ -54,10 +53,10 @@ for t_name in $(cat ../conf/mysql_tables |grep -v '#' | awk -F '\n' '{print $1}'
         do
         d=`echo $t_name | awk -F '.' '{print $1}'`
         t=`echo $t_name | awk -F '.' '{print $2}'`
-        sed -i "0,/ApacherocksHostIp/s/ApacherocksHostIp/${mysql_host}/" $path
-        sed -i "0,/ApacherocksHostPassword/s/ApacherocksHostPassword/${mysql_password}/" $path
-        sed -i "0,/ApacherocksDataBases/s/ApacherocksDataBases/$d/" $path
-        sed -i "0,/ApacherocksTables/s/ApacherocksTables/$t/" $path
+        sed -i "0,/rocksHostIp/s/rocksHostIp/${mysql_host}/" $path
+        sed -i "0,/rocksHostPassword/s/rocksHostPassword/${mysql_password}/" $path
+        sed -i "0,/rocksDataBases/s/rocksDataBases/$d/" $path
+        sed -i "0,/rocksTables/s/rocksTables/$t/" $path
 done
 
 
